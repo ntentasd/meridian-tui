@@ -1,12 +1,26 @@
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Eq, PartialEq)]
 #[allow(dead_code)]
 pub struct Route {
+    pub uid: String,
     pub name: String,
     pub namespace: String,
     pub kind: String,
     pub hostname: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Kind {
+    Upsert,
+    Delete,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Event {
+    pub kind: Kind,
+    pub entry: Route,
 }
 
 #[cfg(test)]

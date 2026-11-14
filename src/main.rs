@@ -1,5 +1,8 @@
 mod api;
 mod cli;
+// TODO: Consume by the SSE client
+#[allow(dead_code)]
+mod store;
 
 use anyhow::Context;
 
