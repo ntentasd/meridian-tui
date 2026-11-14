@@ -1,0 +1,11 @@
+[
+  {
+    "label": "bacon",
+    "command": "bacon",
+    "args": ["clippy"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "reveal_target": "center",
+  },
+]

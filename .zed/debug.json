@@ -1,0 +1,14 @@
+[
+  {
+    "label": "meridian-tui (debug)",
+    "adapter": "CodeLLDB",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/target/debug/meridian-tui",
+    "args": ["--url", "localhost:8080"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "build": {
+      "command": "cargo",
+      "args": ["build"],
+    },
+  },
+]
