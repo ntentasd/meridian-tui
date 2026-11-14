@@ -1,0 +1,62 @@
+[
+  {
+    "uid": "02b61775-c78a-4a32-b3c6-57aa617c1044",
+    "name": "argocd",
+    "namespace": "platform",
+    "kind": "Ingress",
+    "hostname": "argocd.platform.local",
+    "rules": null,
+    "logoUrl": "",
+    "owner": "",
+    "description": "",
+    "docsUrl": "",
+    "tags": null,
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "labels": null
+  },
+  {
+    "uid": "02b61775-c78a-4a32-b3c6-57aa617c1044",
+    "name": "argocd",
+    "namespace": "platform",
+    "kind": "Ingress",
+    "hostname": "cd.platform.local",
+    "rules": null,
+    "logoUrl": "",
+    "owner": "",
+    "description": "",
+    "docsUrl": "",
+    "tags": null,
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "labels": null
+  },
+  {
+    "uid": "68dad2db-cc41-42b3-b3d7-19ad3b892659",
+    "name": "hidden-admin",
+    "namespace": "platform",
+    "kind": "Ingress",
+    "hostname": "admin.platform.local",
+    "rules": null,
+    "logoUrl": "",
+    "owner": "",
+    "description": "",
+    "docsUrl": "",
+    "tags": null,
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "labels": null
+  },
+  {
+    "uid": "056c2b4d-41fd-49a3-b595-33b0293c9095",
+    "name": "shop-web",
+    "namespace": "demo",
+    "kind": "HTTPRoute",
+    "hostname": "shop.demo.local",
+    "rules": null,
+    "logoUrl": "",
+    "owner": "",
+    "description": "",
+    "docsUrl": "",
+    "tags": null,
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "labels": null
+  }
+]
