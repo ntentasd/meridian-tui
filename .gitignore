@@ -11,3 +11,5 @@ rustc-ice-*.txt
 
 # Delta workspaces
 .delta
+
+.DS_Store
