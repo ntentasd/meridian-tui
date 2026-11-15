@@ -18,10 +18,10 @@ impl Store {
     }
 
     pub fn apply(&mut self, event: Event) {
-        let key = (event.entry.uid.clone(), event.entry.hostname.clone());
+        let key = (event.route.uid.clone(), event.route.hostname.clone());
 
         match event.kind {
-            Upsert => self.map.insert(key, event.entry),
+            Upsert => self.map.insert(key, event.route),
             Delete => self.map.remove(&key),
         };
     }

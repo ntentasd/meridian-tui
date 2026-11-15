@@ -20,7 +20,7 @@ pub enum Kind {
 #[derive(Debug, Deserialize)]
 pub struct Event {
     pub kind: Kind,
-    pub entry: Route,
+    pub route: Route,
 }
 
 #[cfg(test)]
