@@ -83,3 +83,85 @@ fn parse_frame(frame: &str) -> Result<Option<Event>, ParseError> {
 
     Ok(None)
 }
+
+#[cfg(test)]
+mod tests {
+    use rstest::{fixture, rstest};
+
+    use crate::api::{Kind, Route};
+
+    use super::*;
+
+    const ARGOCD_FRAME: &str = r#"event: upsert
+data: {"kind":"upsert","route":{"uid":"02b61775-c78a-4a32-b3c6-57aa617c1044","name":"argocd","namespace":"platform","kind":"Ingress","hostname":"argocd.platform.local"}}
+
+"#;
+
+    #[fixture]
+    fn argocd() -> Event {
+        Event {
+            kind: Kind::Upsert,
+            route: Route {
+                uid: "02b61775-c78a-4a32-b3c6-57aa617c1044".into(),
+                name: "argocd".into(),
+                namespace: "platform".into(),
+                kind: "Ingress".into(),
+                hostname: "argocd.platform.local".into(),
+            },
+        }
+    }
+
+    #[rstest]
+    fn parses_valid_frame(argocd: Event) {
+        assert_eq!(parse_frame(ARGOCD_FRAME).unwrap(), Some(argocd));
+    }
+
+    #[rstest]
+    #[case(": ping\n\n")]
+    #[case("id: 7\n\n")]
+    fn ignores_frame_without_data(#[case] input: &str) {
+        assert_eq!(parse_frame(input).unwrap(), None);
+    }
+
+    #[rstest]
+    #[case(
+        r#"event: upsert
+data:
+
+"#
+    )]
+    #[case(
+        r#"event: upsert
+data: invalid
+
+"#
+    )]
+    fn fails_parsing_frame(#[case] input: &str) {
+        assert!(matches!(parse_frame(input), Err(ParseError::Json(_))));
+    }
+
+    #[rstest]
+    fn feed_handles_any_split(argocd: Event) {
+        let bytes = ARGOCD_FRAME.as_bytes();
+
+        for i in 0..=bytes.len() {
+            let mut parser = Parser::new();
+
+            let mut events = parser.feed(&bytes[..i]).unwrap();
+            events.extend(parser.feed(&bytes[i..]).unwrap());
+
+            assert_eq!(events, vec![argocd.clone()], "split at byte {i}");
+        }
+    }
+
+    #[rstest]
+    fn feed_handles_two_frames(argocd: Event) {
+        let frames = ARGOCD_FRAME.repeat(2);
+
+        let mut parser = Parser::new();
+
+        let events = parser.feed(frames.as_bytes()).unwrap();
+
+        assert_eq!(events, vec![argocd.clone(), argocd]);
+    }
+}
